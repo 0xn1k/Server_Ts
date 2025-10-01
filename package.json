@@ -1,0 +1,24 @@
+{
+  "name": "server_ts",
+  "version": "1.0.0",
+  "description": "creating my own Server from scratch in TS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xn1k/Server_Ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0xn1k/Server_Ts/issues"
+  },
+  "homepage": "https://github.com/0xn1k/Server_Ts#readme",
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "typescript": "^5.9.2"
+  }
+}
