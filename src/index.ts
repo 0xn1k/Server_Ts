@@ -1,22 +1,34 @@
 import http from "http";
 
+const books = JSON.stringify([
+    { title: "The Alchemist", author: "Paulo Coelho", year: 1988 },
+    { title: "The Prophet", author: "Kahlil Gibran", year: 1923 }
+]);
+
+const authors = JSON.stringify([
+    { name: "Paulo Coelho", countryOfBirth: "Brazil", yearOfBirth: 1947 },
+    { name: "Kahlil Gibran", countryOfBirth: "Lebanon", yearOfBirth: 1883 }
+]);
+
 
 const requestListener = (req:http.IncomingMessage, res:http.ServerResponse)=>{
-  
-  // content type == application/json used for json data
- // res.setHeader("Content-Type", "application/json");
-  // content type == text/csv used for csv data
- // res.setHeader("Content-Type", "text/csv");
-  // content type == application/pdf used for pdf data
- // res.setHeader("Content-Type", "application/pdf");
-  // to download the file instead of displaying it in browser
-  //res.setHeader("Content-Disposition", "attachment;filename=test.pdf");
-  //res.setHeader("Content-Disposition", "attachment;filename=test.txt");
- // res.setHeader("Content-Disposition", "attachment;filename=testing.pdf");
+  console.log(req.url);
 
-  res.setHeader("Content-Type", "text/html");
-  res.writeHead(200);
-  res.end(`<h1>Hello World</h1>`);
+  res.setHeader("Content-Type", "application/json");
+  switch(req.url){
+    case "/books":
+      res.writeHead(200);
+      res.end(books);
+      return;
+    case "/authors":
+      res.writeHead(200);
+      res.end(authors);
+      return;
+    default:
+      res.writeHead(404);
+      res.end(JSON.stringify({message: "Resource not found"}));
+      return;
+  }
 }
 const server = http.createServer(requestListener)
 
