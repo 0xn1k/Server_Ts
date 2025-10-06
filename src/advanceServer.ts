@@ -1,49 +1,7 @@
 import http from "http";
-// MY OWN SERVER AT SCALE
-
-type Route = {
-  method: string;
-  path: string;
-  handler: (req: any, res: any) => void; 
-};
-
-type logger ={
-  status : number;
-  method : string;
-  path : string;
-}
-
-interface loggerInterface {
-  (info: logger) : void;
-}
-
-interface MyServerRequest extends http.IncomingMessage {
-  body?: any;
-}
-
-function jsonPareser(req:MyServerRequest, res:http.ServerResponse, next: ()=>void){
-  let body = '';
-  console.log("Inside JSON parser middleware");
-  if(req.headers['content-type'] === 'application/json'){
-    req.on('data', chunk => {
-      body += chunk.toString(); 
-    });
-    req.on('end', ()=>{
-      try{
-        req.body = JSON.parse(body);
-      } catch (e){
-        req.body = {};
-        return;
-      }
-      next();
-    })
-    next();
-    
-  }
-  else{
-    next();
-  }
-}
+import { MyServerRequest } from "./types/requestType";
+import { jsonPareser } from "./middleware/jsonPareser";
+import { Route , logger , loggerInterface } from "./types/genericType";
 
 function myOwnServer(){
 
